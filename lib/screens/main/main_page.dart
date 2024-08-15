@@ -1,9 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:namozvaqtlari/core/constants/const_sizes.dart';
 import 'package:namozvaqtlari/core/resources/asset_resources.dart';
+import 'package:namozvaqtlari/screens/main/widgets/buttons_time.dart';
 import 'package:namozvaqtlari/screens/widgets/monthly_item.dart';
 import 'package:namozvaqtlari/screens/widgets/daily_item.dart';
 import 'package:namozvaqtlari/screens/widgets/location.dart';
@@ -41,13 +40,27 @@ class _MainPageState extends State<MainPage> {
               Column(
                 children: [
                   LocationWidget(regionName: widget.regionName),
-                  // ButtonsTime(
-                  //   currentIndex: mainIndex,
-                  //   onTap: (index) {
-                  //     mainIndex = index;
-                  //     setState(() {});
-                  //   },
-                  // ),
+                  ButtonsTime(
+                    currentIndex: mainIndex,
+                    onTap: (index) async {
+                      mainIndex = index;
+                      if(mainIndex == 3){
+                        final DateTime? dateTime = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2024),
+                              lastDate: DateTime(2030),
+                            );
+                            if (dateTime != null) {
+                              setState(() {
+                                selectedDate = dateTime;
+                              });
+                            }
+                            setState(() {});
+                      }
+                      setState(() {});
+                    },
+                  ),
 
                   // const LeftRightWidget(),
 
@@ -108,42 +121,42 @@ class _MainPageState extends State<MainPage> {
                             ),
                           ),
                         ),
-                        ZoomTapAnimation(
-                          onTap: () async {
-                            testIndex = 2;
-                            isVisibleLeft = true;
-                            isVisibleRight = true;
-                            final DateTime? dateTime = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2024),
-                              lastDate: DateTime(2030),
-                            );
-                            if (dateTime != null) {
-                              setState(() {
-                                selectedDate = dateTime;
-                              });
-                            }
-                            setState(() {});
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: ConstSizes.width(30, context),
-                            height: ConstSizes.height(4, context),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color:
-                                  testIndex == 2 ? Colors.blue : Colors.white,
-                            ),
-                            child: const Text(
-                              "Oylik",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
+                        // ZoomTapAnimation(
+                        //   onTap: () async {
+                        //     testIndex = 2;
+                        //     isVisibleLeft = true;
+                        //     isVisibleRight = true;
+                        //     final DateTime? dateTime = await showDatePicker(
+                        //       context: context,
+                        //       initialDate: DateTime.now(),
+                        //       firstDate: DateTime(2024),
+                        //       lastDate: DateTime(2030),
+                        //     );
+                        //     if (dateTime != null) {
+                        //       setState(() {
+                        //         selectedDate = dateTime;
+                        //       });
+                        //     }
+                        //     setState(() {});
+                        //   },
+                        //   child: Container(
+                        //     alignment: Alignment.center,
+                        //     width: ConstSizes.width(30, context),
+                        //     height: ConstSizes.height(4, context),
+                        //     decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       color:
+                        //           testIndex == 2 ? Colors.blue : Colors.white,
+                        //     ),
+                        //     child: const Text(
+                        //       "Oylik",
+                        //       style: TextStyle(
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -152,9 +165,9 @@ class _MainPageState extends State<MainPage> {
                     style: GoogleFonts.arima(fontSize: 15),
                     textAlign: TextAlign.center,
                   ),
-                  if (testIndex == 0) DailyItem(regionName: widget.regionName),
-                  if (testIndex == 1) WeeklyItem(regionName: widget.regionName),
-                  if (testIndex == 2)
+                  if (mainIndex == 0) DailyItem(regionName: widget.regionName),
+                  if (mainIndex == 1) WeeklyItem(regionName: widget.regionName),
+                  if (mainIndex == 2)
                     MonthlyItem(
                         regionName: widget.regionName,
                         month: selectedDate.month),
