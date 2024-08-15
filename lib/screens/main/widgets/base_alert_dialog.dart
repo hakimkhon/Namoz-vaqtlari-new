@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BaseAlertDialog extends StatefulWidget {
+class BaseAlertDialog extends StatelessWidget {
   const BaseAlertDialog({
     super.key,
     required this.title,
@@ -20,40 +20,29 @@ class BaseAlertDialog extends StatefulWidget {
   final Color color;
 
   @override
-  State<BaseAlertDialog> createState() => _BaseAlertDialogState();
-}
-
-class _BaseAlertDialogState extends State<BaseAlertDialog> {
-  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: Colors.amberAccent,
+        // color: Colors.amberAccent,
         child: AlertDialog(
-          title: Text(widget.title),
-          content: Text(widget.content),
-          backgroundColor: widget.color,
+          title: Text(title),
+          content: Text(content),
+          backgroundColor: color,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           actions: <Widget>[
             FloatingActionButton(
               foregroundColor: Colors.greenAccent,
-              child: Text(widget.yes),
+              child: Text(yes),
               onPressed: () {
-                widget.yesOnPressed();
-                showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2024),
-                  lastDate: DateTime(2030),
-                );
-              },
+                yesOnPressed();
+            },
             ),
             FloatingActionButton(
               foregroundColor: Colors.redAccent,
-              child: Text(widget.no),
+              child: Text(no),
               onPressed: () {
-                widget.noOnPressed();
+                noOnPressed();
               },
             ),
           ],

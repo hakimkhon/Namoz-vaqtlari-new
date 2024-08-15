@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:namozvaqtlari/core/constants/const_sizes.dart';
 import 'package:namozvaqtlari/core/resources/asset_resources.dart';
 import 'package:namozvaqtlari/screens/widgets/monthly_item.dart';
@@ -17,12 +20,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int testIndex = 0;
-  int mainIndex = 1;
+  int mainIndex = 1; //hozircha kerak emas sababi boshqa buttondan foydalandim
+  bool isVisibleLeft = false;
+  bool isVisibleRight = false;
   DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(230, 255, 255, 255),
+      backgroundColor: Colors.grey[300],
       body: SafeArea(
         bottom: false,
         child: Padding(
@@ -31,118 +36,160 @@ class _MainPageState extends State<MainPage> {
             right: ConstSizes.width(2, context),
             top: ConstSizes.height(2, context),
           ),
-          child: Column(
+          child: Stack(
             children: [
-              LocationWidget(regionName: widget.regionName),
-              // ButtonsTime(
-              //   currentIndex: mainIndex,
-              //   onTap: (index) {
-              //     mainIndex = index;
-              //     setState(() {});
-              //   },
-              // ),
+              Column(
+                children: [
+                  LocationWidget(regionName: widget.regionName),
+                  // ButtonsTime(
+                  //   currentIndex: mainIndex,
+                  //   onTap: (index) {
+                  //     mainIndex = index;
+                  //     setState(() {});
+                  //   },
+                  // ),
 
-              // const LeftRightWidget(),
+                  // const LeftRightWidget(),
 
-              // Test uchun
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: ConstSizes.height(1, context)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ZoomTapAnimation(
-                      onTap: () {
-                        testIndex = 0;
-                        setState(() {});
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: ConstSizes.width(30, context),
-                        height: ConstSizes.height(4, context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: testIndex == 0 ? Colors.blue : Colors.white,
-                        ),
-                        child: const Text(
-                          "Bugun",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                  // Test uchun
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ConstSizes.height(1, context)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ZoomTapAnimation(
+                          onTap: () {
+                            testIndex = 0;
+                            isVisibleLeft = false;
+                            isVisibleRight = false;
+                            setState(() {});
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: ConstSizes.width(30, context),
+                            height: ConstSizes.height(4, context),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:
+                                  testIndex == 0 ? Colors.blue : Colors.white,
+                            ),
+                            child: const Text(
+                              "Bugun",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    ZoomTapAnimation(
-                      onTap: () {
-                        testIndex = 1;
-                        setState(() {});
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: ConstSizes.width(30, context),
-                        height: ConstSizes.height(4, context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: testIndex == 1 ? Colors.blue : Colors.white,
-                        ),
-                        child: const Text(
-                          "Bu Hafta",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        ZoomTapAnimation(
+                          onTap: () {
+                            testIndex = 1;
+                            isVisibleLeft = true;
+                            isVisibleRight = true;
+                            setState(() {});
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: ConstSizes.width(30, context),
+                            height: ConstSizes.height(4, context),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:
+                                  testIndex == 1 ? Colors.blue : Colors.white,
+                            ),
+                            child: const Text(
+                              "Bu Hafta",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    ZoomTapAnimation(
-                      onTap: () async {
-                        testIndex = 2;
-                        final DateTime? dateTime = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2024),
-                          lastDate: DateTime(2030),
-                        );
-                        if (dateTime != null) {
-                          setState(() {
-                            selectedDate = dateTime;
-                          });
-                        }
-                        setState(() {});
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: ConstSizes.width(30, context),
-                        height: ConstSizes.height(4, context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: testIndex == 2 ? Colors.blue : Colors.white,
-                        ),
-                        child: const Text(
-                          "Oylik",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        ZoomTapAnimation(
+                          onTap: () async {
+                            testIndex = 2;
+                            isVisibleLeft = true;
+                            isVisibleRight = true;
+                            final DateTime? dateTime = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2024),
+                              lastDate: DateTime(2030),
+                            );
+                            if (dateTime != null) {
+                              setState(() {
+                                selectedDate = dateTime;
+                              });
+                            }
+                            setState(() {});
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: ConstSizes.width(30, context),
+                            height: ConstSizes.height(4, context),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:
+                                  testIndex == 2 ? Colors.blue : Colors.white,
+                            ),
+                            child: const Text(
+                              "Oylik",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
+                  Text(
+                    NisoSurasi.oyat_103,
+                    style: GoogleFonts.arima(fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
+                  if (testIndex == 0) DailyItem(regionName: widget.regionName),
+                  if (testIndex == 1) WeeklyItem(regionName: widget.regionName),
+                  if (testIndex == 2)
+                    MonthlyItem(
+                        regionName: widget.regionName,
+                        month: selectedDate.month),
+                ],
+              ),
+              Visibility(
+                visible: isVisibleLeft,
+                child: Positioned(
+                  top: ConstSizes.height(45, context),
+                  left: ConstSizes.width(0, context),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_circle_left_outlined,
+                      size: 50,
+                      color: Colors.blue,
+                    ),
+                  ),
                 ),
               ),
-              const Text(
-                NisoSurasi.oyat_103,
-                style: TextStyle(
-                  fontSize: 15,
+              Visibility(
+                visible: isVisibleRight,
+                child: Positioned(
+                  top: ConstSizes.height(45, context),
+                  left: ConstSizes.width(80, context),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_circle_right_outlined,
+                      size: 50,
+                      color: Colors.blue,
+                    ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
               ),
-              if (testIndex == 0) DailyItem(regionName: widget.regionName),
-              if (testIndex == 1) WeeklyItem(regionName: widget.regionName),
-              if (testIndex == 2)
-                MonthlyItem(
-                    regionName: widget.regionName, month: selectedDate.month),
             ],
           ),
         ),

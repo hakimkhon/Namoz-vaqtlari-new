@@ -23,7 +23,7 @@ class WeeklyItem extends StatelessWidget {
               itemCount: snapshot.data?.length,
               itemBuilder: (context, index) {
                 return Container(
-                  width: ConstSizes.width(90, context),
+                  width: ConstSizes.width(94, context),
                   margin: EdgeInsets.symmetric(
                     horizontal: ConstSizes.width(1, context),
                   ),
