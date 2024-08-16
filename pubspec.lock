@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  card_swiper:
+    dependency: "direct main"
+    description:
+      name: card_swiper
+      sha256: "21e52a144decbf0054e7cfed8bbe46fc89635e6c86b767eaccfe7d5aeba32528"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   characters:
     dependency: transitive
     description:
@@ -320,6 +328,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  swipe:
+    dependency: "direct main"
+    description:
+      name: swipe
+      sha256: e2f823093ef0161698cc380f5f868a6be380cb5c90c1c0ddc7fa2b0a7eadfa0e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   term_glyph:
     dependency: transitive
     description:

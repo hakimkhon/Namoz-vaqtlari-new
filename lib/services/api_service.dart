@@ -18,8 +18,7 @@ class ApiService {
   }
 
 // https://islomapi.uz/api/present/week?region=Toshkent
-  static Future<List<WeeklyDataModel?>?> getWeeklyData(
-      context, String region) async {
+  static Future<List<WeeklyDataModel?>?> getWeeklyData(String region) async {
     try {
       Response res = await Dio().get("${ConstUrls.weeklyUrl}$region");
       List<WeeklyDataModel> weeklyDataModel =

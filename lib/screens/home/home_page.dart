@@ -94,13 +94,3 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// void _runFilter(String enterKeyword) {
-//   List<String> result = [];
-//   if (enterKeyword.isEmpty) {
-//     result = MockDataRegion.regions;
-//   } else {
-//     // result = MockDataRegion.regions.where(title){
-      
-//     // } 
-//   }
-// }

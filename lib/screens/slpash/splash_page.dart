@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:namozvaqtlari/core/resources/asset_resources.dart';
 import 'package:namozvaqtlari/routes/all_routes.dart';
-// import 'package:namozvaqtlari/routes/all_routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -37,11 +36,6 @@ class _SplashPageState extends State<SplashPage> {
             LottieAssets.lottieSplash,
           ),
         ),
-        // ElevatedButton(
-        //     onPressed: () {
-        //       Navigator.pushNamed(context, AllRoutesNames.home);
-        //     },
-        //     child: const Text("Meni Bos")),
       ],
     ));
   }

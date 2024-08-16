@@ -1,31 +1,44 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:namozvaqtlari/core/constants/const_sizes.dart';
 import 'package:namozvaqtlari/models/weekly_data_model.dart';
 import 'package:namozvaqtlari/services/api_service.dart';
 
 class WeeklyItem extends StatelessWidget {
-  const WeeklyItem({super.key, required this.regionName});
+  const WeeklyItem({
+    super.key,
+    required this.regionName,
+  });
   final String regionName;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: FutureBuilder(
-        future: ApiService.getWeeklyData(context, regionName),
+        future: ApiService.getWeeklyData(regionName),
         builder: (context, AsyncSnapshot<List<WeeklyDataModel?>?> snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return const Text("ERROR");
           } else {
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data?.length,
+            debugPrint(DateTime.now().weekday.toString());
+            return Swiper(
+              index: DateTime.now().weekday - 1,
+              pagination:
+                  const SwiperPagination(), //pastdagi nuqtalar ko'rinishi
+              control: const SwiperControl(
+                size: 36,
+                color: Colors.green,
+                iconPrevious: Icons.arrow_circle_left,
+                iconNext: Icons.arrow_circle_right,
+              ),
+              itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return Container(
-                  width: ConstSizes.width(94, context),
+                  // width: ConstSizes.width(100, context),
                   margin: EdgeInsets.symmetric(
-                    horizontal: ConstSizes.width(1, context),
+                    horizontal: ConstSizes.width(7, context),
                   ),
                   child: Card(
                     color: Colors.white,
@@ -33,7 +46,7 @@ class WeeklyItem extends StatelessWidget {
                       padding: EdgeInsets.only(
                         left: ConstSizes.width(2, context),
                         right: ConstSizes.width(2, context),
-                        top: ConstSizes.width(2, context),
+                        top: ConstSizes.width(1, context),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

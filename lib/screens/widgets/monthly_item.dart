@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:namozvaqtlari/core/constants/const_sizes.dart';
 import 'package:namozvaqtlari/models/monthly_data_model.dart';
@@ -8,9 +9,11 @@ class MonthlyItem extends StatelessWidget {
     super.key,
     required this.regionName,
     required this.month,
+    required this.day,
   });
   final String regionName;
   final int month;
+  final int day;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +26,22 @@ class MonthlyItem extends StatelessWidget {
           } else if (snapshot.hasError) {
             return const Text("ERROR");
           } else {
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data?.length,
+            debugPrint(("kun: $day"));
+            return Swiper(
+              // pagination: const SwiperPagination(), //pastdagi nuqtalar ko'rinishi
+              control: const SwiperControl(
+                size: 36,
+                color: Colors.green,
+                iconPrevious: Icons.arrow_circle_left,
+                iconNext: Icons.arrow_circle_right,
+              ),
+              index: day - 1,
+              itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return Container(
                   width: ConstSizes.width(94, context),
                   margin: EdgeInsets.symmetric(
-                    horizontal: ConstSizes.width(1, context),
+                    horizontal: ConstSizes.width(7, context),
                   ),
                   child: Card(
                     color: Colors.white,

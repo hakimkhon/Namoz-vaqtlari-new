@@ -40,6 +40,8 @@ dependencies:
   response: ^1.0.0
   dio: ^5.5.0+1
   google_fonts: ^6.2.1
+  card_swiper: ^3.0.1
+  swipe: ^0.0.1
 
 dev_dependencies:
   flutter_test:

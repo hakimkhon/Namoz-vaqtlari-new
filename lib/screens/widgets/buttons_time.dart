@@ -14,12 +14,12 @@ class ButtonsTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25.0, bottom: 15),
+      padding: const EdgeInsets.only(top: 10.0, bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           myButton(context, "Bugun", currentIndex ==1?  Colors.green : Colors.white, 1),
-          myButton(context, "Shu Xafta", currentIndex ==2?  Colors.green : Colors.white, 2),
+          myButton(context, "Xaftalik", currentIndex ==2?  Colors.green : Colors.white, 2),
           myButton(context, "Oylik", currentIndex ==3?  Colors.green : Colors.white, 3),
         ],
       ),
@@ -30,7 +30,6 @@ class ButtonsTime extends StatelessWidget {
     return ZoomTapAnimation(
       onTap: () {
         onTap(index);
-        // if(index==3){}
       },
       child: SizedBox(
         width: ConstSizes.width(30, context),
